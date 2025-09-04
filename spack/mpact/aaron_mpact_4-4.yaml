@@ -1,0 +1,25 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings for VERA 4.4
+spack:
+  specs:
+  - cmake %gcc@8.4.0
+  - hdf5@1.10 +cxx+fortran+hl %gcc@8.4.0
+  - mpich@3.4 %gcc@8.4.0
+  - petsc@3.15 %gcc@8.4.0
+  - netlib-lapack %gcc@8.4.0
+  - silo %gcc@8.4.0
+  - gdb ~debuginfod %gcc@8.4.0
+  - htop
+  view: true
+  concretizer:
+    unify: when_possible
+  packages:
+    python:
+      buildable: false
+      externals:
+      - spec: python@2.7.18+bz2+crypt+ctypes~dbm~lzma+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+        prefix: /home/aarog/miniconda3/envs/py2
+  config:
+    build_jobs: 10
