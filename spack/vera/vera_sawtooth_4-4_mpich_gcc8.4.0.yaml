@@ -1,0 +1,57 @@
+# Assumes you did `module load gcc/8.4.0` first
+#
+spack:
+  # add package specs to the `specs` list
+  specs:
+  - cmake@3.22 %gcc@12.3.0
+  - mpich@4.2.3 ~cuda %gcc@=8.4.0
+  - netlib-lapack %gcc@=8.4.0
+  - boost %gcc@8.4.0
+  - swig@4.0.2 %gcc@8.4.0
+  - hdf5@1.10.1 +cxx+fortran+hl ^mpich@4.2.3 %gcc@=8.4.0
+  - petsc@3.15 +metis+superlu-dist+hypre ^mpich@4.2.3 %gcc@=8.4.0
+  - silo@4.10.2 +hdf5 ~python ^hdf5@1.10.1 +cxx+fortran+hl ^mpich@4.2.3 %gcc@=8.4.0
+  - py-numpy
+  view: true
+  config:
+    install_tree:
+      root: /projects/veracity/codes/spack/vera_4-4_20250904_mpich/spack_opt
+  concretizer:
+    unify: when_possible
+  compilers:
+  - compiler:
+      spec: gcc@=8.4.0
+      paths:
+        cc: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/gcc
+        cxx: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/g++
+        f77: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/gfortran
+        fc: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/gfortran
+      flags: {}
+      operating_system: rocky8
+      target: x86_64
+      modules: []
+      environment: {}
+      extra_rpaths: []
+  packages:
+    gcc:
+      externals:
+      - spec: gcc@8.4.0 languages:='c,c++,fortran'
+        prefix: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki
+        extra_attributes:
+          compilers:
+            c: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/gcc
+            cxx: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/g++
+            fortran: /apps/spack/opt/gcc-12.3.0/gcc-8.4.0-f7a4qhvhqv5c6x7ntaxdr5fl4am2v7ki/bin/gfortran
+          flags: {}
+          environment: {}
+          extra_rpaths: []
+      - spec: gcc@12.3.0 languages:='c,c++,fortran'
+        prefix: /apps/spack/opt/gcc-10.5.0/gcc-12.3.0-vx2ffftzrhvsqiflq3hwu2nissbw5dpf
+        extra_attributes:
+          compilers:
+            c: /apps/spack/opt/gcc-10.5.0/gcc-12.3.0-vx2ffftzrhvsqiflq3hwu2nissbw5dpf/bin/gcc
+            cxx: /apps/spack/opt/gcc-10.5.0/gcc-12.3.0-vx2ffftzrhvsqiflq3hwu2nissbw5dpf/bin/g++
+            fortran: /apps/spack/opt/gcc-10.5.0/gcc-12.3.0-vx2ffftzrhvsqiflq3hwu2nissbw5dpf/bin/gfortran
+          flags: {}
+          environment: {}
+          extra_rpaths: []
