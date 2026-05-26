@@ -40,8 +40,8 @@ spack:
     python:
       buildable: false
       externals:
-      - spec: python@3.11.0
-        prefix: /home/bestmica/miniconda3/envs/veracity
+      - spec: python@3.11.15
+        prefix: /projects/veracity/codes/conda_envs/SCALE-7.0.pre-b11
   compilers:
   - compiler:
       spec: gcc@13.4.0
