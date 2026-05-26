@@ -9,7 +9,6 @@ spack:
   - petsc@3.15.5 +metis+superlu-dist+hypre ^openmpi@4.1.6 %gcc@=13.4.0
   - silo@4.11.1 +hdf5 ^hdf5@1.12.2 +cxx+fortran+hl ^openmpi@4.1.6 %gcc@=13.4.0
   - trilinos@14.2.0 cxxstd=17 ~adios2~boost~chaco~complex~debug~dtk~exodus~gtest~float~hdf5~hypre~intrepid2~isorropia~mesquite~minitensor~muelu~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~shylu~stk~suite-sparse~superlu-dist~teko~tempus~x11~zoltan~zoltan2+intrepid+ml+stratimikos+thyra ^openmpi@4.1.6 %gcc@=13.4.0
-  - qt ~gui %gcc@=13.4.0
   - nlohmann-json
   - pugixml
   - superlu
@@ -30,9 +29,9 @@ spack:
     python:
       buildable: false
       externals:
-      - spec: python@3.11.0
-        prefix: /home/bestmica/miniconda3/envs/veracity
-  compilers:
+      - spec: python@3.11.15
+        prefix: /projects/veracity/codes/conda_envs/SCALE-7.0.pre-b11
+  compilers:   
   - compiler:
       spec: gcc@13.4.0
       paths:
