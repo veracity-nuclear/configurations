@@ -1,0 +1,130 @@
+# Assumes you did `module load gcc/8.5.0 mpich/4.3.2` first
+#
+spack:
+  # add package specs to the `specs` list
+  specs:
+    #  - mpich@4.3.2~hydra+libxml2+romio+slurm~verbs+wrapperrpath device=ch4 netmod=ofi pmi=pmix %gcc@=8.5.0
+  - netlib-lapack %gcc@=8.5.0
+  - boost %gcc@8.5.0
+  - swig@4.0.2 %gcc@8.5.0
+  - petsc@3.15 +metis+mpi+hypre+superlu-dist~kokkos cflags="-O3" cxxflags="-O3" fflags="-O3" %gcc@=8.5.0
+  - silo@4.11.1 +hdf5 +mpi ~python %gcc@=8.5.0 ^hdf5@1.14.6 #cppflags="-I/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/include" ldflags="-L/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/lib"
+    #- silo@4.11.1 +hdf5 +mpi ~python cppflags="-I/apps/spack/opt/gcc-13.4.0/openmpi-5.0.9-3nksphs6tyun5b7lh3lx2x36dsgvqsra/include" ldflags="-L/apps/spack/opt/gcc-13.4.0/openmpi-5.0.9-3nksphs6tyun5b7lh3lx2x36dsgvqsra/lib" %gcc@=13.4.0 ^hdf5@1.14.6
+  - bison@3.4.2 %gcc@8.5.0
+  view: true
+  config:
+    install_tree:
+      root: /projects/veracity/codes/spack/vera_4-4_20260427_teton_gcc8/spack_opt
+  concretizer:
+    unify: when_possible
+  packages:
+    mpi:
+      require: [mpich@4.3.2~hydra+libxml2+romio+slurm~verbs+wrapperrpath device=ch4 netmod=ofi pmi=pmix]
+    gcc:
+      externals:
+      - spec: gcc@8.5.0 languages:='c,c++,fortran'
+        prefix: /home/grahaaro2/spack_teton/opt/spack/linux-zen4/gcc-8.5.0-riibhjeu3izduhv2dv7g4dcqx3inw64s
+        extra_attributes:
+          compilers:
+            c: /home/grahaaro2/spack_teton/opt/spack/linux-zen4/gcc-8.5.0-riibhjeu3izduhv2dv7g4dcqx3inw64s/bin/gcc
+            cxx: /home/grahaaro2/spack_teton/opt/spack/linux-zen4/gcc-8.5.0-riibhjeu3izduhv2dv7g4dcqx3inw64s/bin/g++
+            fortran: /home/grahaaro2/spack_teton/opt/spack/linux-zen4/gcc-8.5.0-riibhjeu3izduhv2dv7g4dcqx3inw64s/bin/gfortran
+      - spec: gcc@11.5.0 languages:='c,c++,fortran'
+        prefix: /usr
+        extra_attributes:
+          compilers:
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fortran: /usr/bin/gfortran
+    coreutils:
+      externals:
+      - spec: coreutils@8.32
+        prefix: /usr
+    zlib:
+      externals:
+      - spec: zlib@1.2.11
+        prefix: /usr
+    findutils:
+      externals:
+      - spec: findutils@4.8.0
+        prefix: /usr
+    sed:
+      externals:
+      - spec: sed@4.8
+        prefix: /usr
+    git:
+      externals:
+      - spec: git@2.47.3~tcltk
+        prefix: /usr
+    groff:
+      externals:
+      - spec: groff@1.22.4
+        prefix: /usr
+    tar:
+      externals:
+      - spec: tar@1.34
+        prefix: /usr
+    libtool:
+      externals:
+      - spec: libtool@2.4.6
+        prefix: /usr
+    gmake:
+      externals:
+      - spec: gmake@4.3
+        prefix: /usr
+    openssh:
+      externals:
+      - spec: openssh@8.7p1
+        prefix: /usr
+    gettext:
+      externals:
+      - spec: gettext@0.21
+        prefix: /usr
+    curl:
+      externals:
+      - spec: curl@7.76.1+gssapi+ldap+nghttp2
+        prefix: /usr
+    diffutils:
+      externals:
+      - spec: diffutils@3.7
+        prefix: /usr
+    bison:
+      externals:
+      - spec: bison@3.7.4
+        prefix: /usr
+    binutils:
+      externals:
+      - spec: binutils@2.35.2~gold~headers
+        prefix: /usr
+    gawk:
+      externals:
+      - spec: gawk@5.1.0
+        prefix: /usr
+    m4:
+      externals:
+      - spec: m4@1.4.19
+        prefix: /usr
+    perl:
+      externals:
+      - spec: perl@5.32.1~cpanm+opcode+open+shared+threads
+        prefix: /usr
+    flex:
+      externals:
+      - spec: flex@2.6.4+lex
+        prefix: /usr
+    automake:
+      externals:
+      - spec: automake@1.16.2
+        prefix: /usr
+    pkgconf:
+      externals:
+      - spec: pkgconf@1.7.3
+        prefix: /usr
+    autoconf:
+      externals:
+      - spec: autoconf@2.69
+        prefix: /usr
+    openssl:
+      externals:
+      - spec: openssl@3.2.2
+        prefix: /usr

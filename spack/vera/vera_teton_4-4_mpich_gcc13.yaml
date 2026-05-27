@@ -1,0 +1,145 @@
+# Assumes you did `module load cmake/3.31.11-gcc13-ef4y gcc/13.4.0-gcc11-5dyu mpich/4.3.2-gcc13-iljv hdf5/1.14.6-gcc13-mpch4-ap7h` first
+#
+spack:
+  # add package specs to the `specs` list
+  specs:
+  - netlib-lapack %gcc@=13.4.0
+  - boost %gcc@13.4.0
+  - swig@4.0.2 %gcc@13.4.0
+  - petsc@3.15 +metis+mpi+hypre+superlu-dist~kokkos cflags="-O3" cxxflags="-O3" fflags="-O3" %gcc@=13.4.0 ^python@3.9.21
+  - silo@4.11.1 +hdf5 +mpi ~python cppflags="-I/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/include" ldflags="-L/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/lib" %gcc@=13.4.0 ^hdf5@1.14.6
+    #- silo@4.11.1 +hdf5 +mpi ~python cppflags="-I/apps/spack/opt/gcc-13.4.0/openmpi-5.0.9-3nksphs6tyun5b7lh3lx2x36dsgvqsra/include" ldflags="-L/apps/spack/opt/gcc-13.4.0/openmpi-5.0.9-3nksphs6tyun5b7lh3lx2x36dsgvqsra/lib" %gcc@=13.4.0 ^hdf5@1.14.6
+  - bison@3.4.2 %gcc@13.4.0
+  view: true
+  config:
+    install_tree:
+      root: /projects/veracity/codes/spack/vera_4-4_20260316_teton/spack_opt
+  concretizer:
+    unify: when_possible
+  packages:
+    mpich:
+      externals:
+      - spec: mpich@4.3.2~hydra+libxml2+romio+slurm~verbs+wrapperrpath device=ch4 netmod=ofi pmi=pmi
+        prefix: /apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj
+    coreutils:
+      externals:
+      - spec: coreutils@8.32
+        prefix: /usr
+    zlib:
+      externals:
+      - spec: zlib@1.2.11
+        prefix: /usr
+    findutils:
+      externals:
+      - spec: findutils@4.8.0
+        prefix: /usr
+    sed:
+      externals:
+      - spec: sed@4.8
+        prefix: /usr
+    git:
+      externals:
+      - spec: git@2.47.3~tcltk
+        prefix: /usr
+    groff:
+      externals:
+      - spec: groff@1.22.4
+        prefix: /usr
+    tar:
+      externals:
+      - spec: tar@1.34
+        prefix: /usr
+    libtool:
+      externals:
+      - spec: libtool@2.4.6
+        prefix: /usr
+    gmake:
+      externals:
+      - spec: gmake@4.3
+        prefix: /usr
+    openssh:
+      externals:
+      - spec: openssh@8.7p1
+        prefix: /usr
+    go:
+      externals:
+      - spec: go@1.18
+        prefix: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr
+    gettext:
+      externals:
+      - spec: gettext@0.21
+        prefix: /usr
+    curl:
+      externals:
+      - spec: curl@7.76.1+gssapi+ldap+nghttp2
+        prefix: /usr
+    diffutils:
+      externals:
+      - spec: diffutils@3.7
+        prefix: /usr
+    bison:
+      externals:
+      - spec: bison@3.7.4
+        prefix: /usr
+    binutils:
+      externals:
+      - spec: binutils@2.35.2~gold~headers
+        prefix: /usr
+    python:
+      externals:
+      - spec: python@3.9.21+bz2+crypt+ctypes+dbm+lzma+pyexpat+pythoncmd+readline+sqlite3+ssl+tix+tkinter+uuid+zlib
+        prefix: /usr
+      buildable: false
+    gawk:
+      externals:
+      - spec: gawk@5.1.0
+        prefix: /usr
+    m4:
+      externals:
+      - spec: m4@1.4.19
+        prefix: /usr
+    perl:
+      externals:
+      - spec: perl@5.32.1~cpanm+opcode+open+shared+threads
+        prefix: /usr
+    cmake:
+      externals:
+      - spec: cmake@3.31.11
+        prefix: /apps/spack/opt/gcc-13.4.0/cmake-3.31.11-ef4yacaj3xrkobmtf2p5di4kndkc5f6k
+      buildable: false
+    flex:
+      externals:
+      - spec: flex@2.6.4+lex
+        prefix: /usr
+    automake:
+      externals:
+      - spec: automake@1.16.2
+        prefix: /usr
+    pkgconf:
+      externals:
+      - spec: pkgconf@1.7.3
+        prefix: /usr
+    autoconf:
+      externals:
+      - spec: autoconf@2.69
+        prefix: /usr
+    openssl:
+      externals:
+      - spec: openssl@3.2.2
+        prefix: /usr
+    gcc:
+      externals:
+      - spec: gcc@13.4.0 languages:='c,c++,fortran,go'
+        prefix: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr
+        extra_attributes:
+          compilers:
+            c: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gcc
+            cxx: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/g++
+            fortran: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gfortran
+            go: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gccgo
+      buildable: false
+    hdf5:
+      externals:
+      - spec: hdf5@1.14.6
+        prefix: /apps/spack/opt/gcc-13.4.0/hdf5-1.14.6-uw6mruyouxfiiqeao5rgygw2pm2tfc7i
+      buildable: false
