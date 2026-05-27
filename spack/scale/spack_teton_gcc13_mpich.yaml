@@ -11,10 +11,10 @@ spack:
   - netlib-lapack@3.11.0 %gcc@=13.4.0
   - boost@1.74.0 %gcc@13.4.0
   - swig@4.0.2 %gcc@13.4.0
-  - hdf5@1.12.2 +cxx+fortran+hl ^mpich@4.3.2 %gcc@=13.4.0
-  - petsc@3.15.5 +metis+superlu-dist+hypre ^mpich@4.3.2 %gcc@=13.4.0
-  - silo@4.11.1 +hdf5 ^hdf5@1.12.2 +cxx+fortran+hl ^mpich@4.3.2 %gcc@=13.4.0
-  - trilinos@14.2.0 cxxstd=17 ~adios2~boost~chaco~complex~debug~dtk~exodus~gtest~float~hdf5~hypre~intrepid2~isorropia~mesquite~minitensor~muelu~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~shylu~stk~suite-sparse~superlu-dist~teko~tempus~x11~zoltan~zoltan2+intrepid+ml+stratimikos+thyra ^mpich@4.3.2 %gcc@=13.4.0
+  - hdf5@1.12.2 +cxx+fortran+hl %gcc@=13.4.0
+  - petsc@3.15.5 +metis+superlu-dist+hypre %gcc@=13.4.0
+  - silo@4.11.1 +hdf5 ~python cppflags="-I/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/include" ldflags="-L/apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj/lib" %gcc@=13.4.0 ^hdf5@1.12.2 +cxx+fortran+hl
+  - trilinos@14.2.0 cxxstd=17 ~adios2~boost~chaco~complex~debug~dtk~exodus~gtest~float~hdf5~hypre~intrepid2~isorropia~mesquite~minitensor~muelu~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~shylu~stk~suite-sparse~superlu-dist~teko~tempus~x11~zoltan~zoltan2+intrepid+ml+stratimikos+thyra %gcc@=13.4.0
   - nlohmann-json
   - pugixml
   - superlu
@@ -27,33 +27,34 @@ spack:
   - autoconf@2.71 ^m4@1.4.19
   - automake@1.16.5
   - libtool@2.4.7
-  
+
   view: true
+  config:
+    build_jobs: 6
+    install_tree:
+      root: /projects/veracity/codes/spack/20260506_scale7_beta11_teton/spack_opt
   concretizer:
     unify: when_possible
   packages:
-    mpich:
-      buildable: false
-      externals:
-      - spec: mpich@4.3.2 %gcc@13.4.0
-        prefix: /apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj
+    mpi:
+      require: [mpich@4.3.2~hydra+libxml2+romio+slurm~verbs+wrapperrpath device=ch4 netmod=ofi pmi=pmix]
     python:
-      buildable: false
       externals:
-      - spec: python@3.11.15
-        prefix: /projects/veracity/codes/conda_envs/SCALE-7.0.pre-b11
-  compilers:
-  - compiler:
-      spec: gcc@13.4.0
-      paths:
-        cc: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gcc
-        cxx: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/g++
-        fc: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gfortran
-        f77: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gfortran
-      operating_system: rhel8
-      target: x86_64
-      modules: []
-      environment: {}
-      extra_rpaths: []
-  config:
-    build_jobs: 12
+      - spec: python@3.9.21+bz2+crypt+ctypes+dbm+lzma+pyexpat+pythoncmd+readline+sqlite3+ssl+tix+tkinter+uuid+zlib
+        prefix: /usr
+      buildable: false
+    mpich:
+      externals:
+      - spec: mpich@4.3.2~hydra+libxml2+romio+slurm~verbs+wrapperrpath device=ch4 netmod=ofi pmi=pmix
+        prefix: /apps/spack/opt/gcc-13.4.0/mpich-4.3.2-iljvvffn6j2dhl6czhlz44sf2tmnuywj
+      buildable: false
+    gcc:
+      externals:
+      - spec: gcc@13.4.0 languages:='c,c++,fortran,go'
+        prefix: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr
+        extra_attributes:
+          compilers:
+            c: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gcc
+            cxx: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/g++
+            fortran: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gfortran
+            go: /apps/spack/opt/gcc-11.5.0/gcc-13.4.0-5dyuqxsmafc7dhogrdbdiqqifmhupqwr/bin/gccgo
