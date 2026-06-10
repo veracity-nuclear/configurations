@@ -1,14 +1,20 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings for SCALE 7.0.beta10 2026/06/10
+#
+# Assumes: module load gcc
+#          module load openmpi
 spack:
   specs:
   - cmake@3.23
-  - openmpi@4.1.6 fabrics=ucx schedulers=auto ~cuda %gcc@=13.4.0
   - netlib-lapack@3.11.0 %gcc@=13.4.0
   - boost@1.74.0 %gcc@13.4.0
   - swig@4.0.2 %gcc@13.4.0
-  - hdf5@1.12.2 +cxx+fortran+hl ^openmpi@4.1.6 %gcc@=13.4.0
-  - petsc@3.15.5 +metis+superlu-dist+hypre ^openmpi@4.1.6 %gcc@=13.4.0
-  - silo@4.11.1 +hdf5 ^hdf5@1.12.2 +cxx+fortran+hl ^openmpi@4.1.6 %gcc@=13.4.0
-  - trilinos@14.2.0 cxxstd=17 ~adios2~boost~chaco~complex~debug~dtk~exodus~gtest~float~hdf5~hypre~intrepid2~isorropia~mesquite~minitensor~muelu~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~shylu~stk~suite-sparse~superlu-dist~teko~tempus~x11~zoltan~zoltan2+intrepid+ml+stratimikos+thyra ^openmpi@4.1.6 %gcc@=13.4.0
+  - hdf5@1.12.2 +cxx+fortran+hl ^openmpi@5.0.8 %gcc@=13.4.0
+  - petsc@3.15.5 +metis+superlu-dist+hypre ^openmpi@5.0.8 %gcc@=13.4.0
+  - silo@4.11.1 +hdf5 ^hdf5@1.12.2 +cxx+fortran+hl ^openmpi@5.0.8 %gcc@=13.4.0
+  - trilinos@14.2.0 cxxstd=17 ~adios2~boost~chaco~complex~debug~dtk~exodus~gtest~float~hdf5~hypre~intrepid2~isorropia~mesquite~minitensor~muelu~mumps~nox~openmp~phalanx~piro~python~rol~rythmos~shylu~stk~suite-sparse~superlu-dist~teko~tempus~x11~zoltan~zoltan2+intrepid+ml+stratimikos+thyra ^openmpi@5.0.8 %gcc@=13.4.0
   - nlohmann-json
   - pugixml
   - superlu
@@ -26,12 +32,26 @@ spack:
   concretizer:
     unify: when_possible
   packages:
+    gcc:
+      externals:
+      - spec: gcc@13.4.0 languages:='c,c++,fortran'
+        prefix: /apps/spack/opt/gcc-10.5.0/gcc-13.4.0-a4imb47zmpbfarsrxcxh6tfcjzuehlqf
+        extra_attributes:
+          compilers:
+            c: /apps/spack/opt/gcc-10.5.0/gcc-13.4.0-a4imb47zmpbfarsrxcxh6tfcjzuehlqf/bin/gcc
+            cxx: /apps/spack/opt/gcc-10.5.0/gcc-13.4.0-a4imb47zmpbfarsrxcxh6tfcjzuehlqf/bin/g++
+            fortran: /apps/spack/opt/gcc-10.5.0/gcc-13.4.0-a4imb47zmpbfarsrxcxh6tfcjzuehlqf/bin/gfortran
+    openmpi:
+      buildable: false
+      externals:
+      - spec: openmpi@5.0.8 %gcc@13.4.0
+        prefix: /apps/spack/opt/gcc-13.4.0/openmpi-5.0.8-g24emjuo2i2apur3wnfj4nlswpek5ezd
     python:
       buildable: false
       externals:
       - spec: python@3.11.15
         prefix: /projects/veracity/codes/conda_envs/SCALE-7.0.pre-b11
-  compilers:   
+  compilers:
   - compiler:
       spec: gcc@13.4.0
       paths:
@@ -46,3 +66,5 @@ spack:
       extra_rpaths: []
   config:
     build_jobs: 12
+    install_tree:
+      root: /projects/veracity/codes/spack/SCALE-7.0.pre-b11-sawtooth-20260610/spack_opt
