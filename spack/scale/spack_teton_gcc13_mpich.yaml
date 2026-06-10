@@ -58,4 +58,4 @@ spack:
   config:
     build_jobs: 12
     install_tree:
-      root: /projects/veracity/codes/spack/SCALE-7.0.pre-b11-sawtooth-20260526/spack_opt
+      root: /projects/veracity/codes/spack/SCALE-7.0.pre-b11-teton-20260610/spack_opt
